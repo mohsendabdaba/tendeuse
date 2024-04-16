@@ -1,0 +1,21 @@
+image: maven:latest
+
+stages:
+  - build
+
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  GIT_REPO_URL: "https://github.com/mohsendabdaba/tondeuse.git"
+
+before_script:
+  - mvn clean install -DskipTests=true
+
+build:
+  stage: build
+  script:
+    - git clone $GIT_REPO_URL
+    - cd tondeuse
+    - mvn package
+
+
